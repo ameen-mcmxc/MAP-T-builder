@@ -88,7 +88,7 @@
   - name: Create networking (IP routes) file 
     tags: routing
     ansible.builtin.template:
-      src: /root/DS-Lite_Test_Bed/files/MAPE-networking.txt
+      src: MAPE-networking.txt
       dest: /root/networking.sh
       owner: root
       mode: '755'
