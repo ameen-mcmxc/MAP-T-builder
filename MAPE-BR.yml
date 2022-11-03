@@ -47,7 +47,6 @@
          - vpp-api-python
          - vpp-api-lua
          - vpp-api-java
-         - libvpp0
        state: present
 
 
