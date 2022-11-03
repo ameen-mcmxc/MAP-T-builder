@@ -50,6 +50,13 @@
        state: present
 
 
+   - name: Install vpp-api-java Package
+     tags: danach
+     yum:
+       name: vpp-api-java
+       state: present
+       skip_broken: yes
+
    - name: Install several packages in case of deleting iptables
      tags: iptables
      yum: 
