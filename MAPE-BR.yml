@@ -74,6 +74,14 @@
        state: present
 
 
+  - name: Start VPP Service
+    tags: service
+    systemd:
+      name: vpp
+      state: started
+      enabled: yes
+        
+    
    - name: Set the timezone.
      tags: NTP
      shell: |
@@ -89,5 +97,4 @@
        dest: /root/networking.sh
        owner: root
        mode: '755'
-
 
