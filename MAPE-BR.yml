@@ -46,7 +46,6 @@
          - vpp-ext-deps
          - vpp-api-python
          - vpp-api-lua
-         - vpp-api-java
        state: present
 
 
