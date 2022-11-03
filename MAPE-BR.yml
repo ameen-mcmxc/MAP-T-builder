@@ -1,78 +1,75 @@
 ---
--  hosts: localhost
-   any_errors_fatal: true
-   gather_facts: no
+- hosts: localhost
+  any_errors_fatal: true
+  gather_facts: no
+  connection: local
 
-   tasks:
-   - name: Update the machine
-     tags: upd
-     yum:
-       update_only: yes
+  tasks:
+  - name: Update the machine
+    tags: upd
+    yum:
+      update_only: yes
 
+  - name: Install General Essential packages
+    tags: essentials
+    yum: 
+      name: 
+        - nano
+        - net-tools
+        - tcpdump
+        - nmap
+        - wireshark
+        - git
+        - wget
+        - iproute
+        - psmisc
+        - yum-utils
+        - chrony
+        - telnet
+        - iptables-services
+        - conntrack
+        - gcc
+        - pygpgme
+        - mbedtls
+        - python36
+      state: present
 
-   - name: Install General Essential packages
-     tags: essentials
-     yum: 
-       name: 
-         - nano
-         - net-tools
-         - tcpdump
-         - nmap
-         - wireshark
-         - git
-         - wget
-         - iproute
-         - psmisc
-         - yum-utils
-         - chrony
-         - telnet
-         - iptables-services
-         - conntrack
-         - gcc
-         - pygpgme
-         - mbedtls
-         - python36
-       state: present
+  - name: Install General Essential packages
+    tags: danach
+    yum: 
+      name: 
+        - vpp
+        - vpp-plugins
+        - vpp-devel
+        - vpp-debuginfo
+        - vpp-ext-deps
+        - vpp-api-python
+        - vpp-api-lua
+      state: present
 
-
-   - name: Install General Essential packages
-     tags: danach
-     yum: 
-       name: 
-         - vpp
-         - vpp-plugins
-         - vpp-devel
-         - vpp-debuginfo
-         - vpp-ext-deps
-         - vpp-api-python
-         - vpp-api-lua
-       state: present
-
-
-   - name: Install vpp-api-java Package
-     tags: danach
-     yum:
-       name: vpp-api-java
-       state: present
-       skip_broken: yes
-
-   - name: Install several packages in case of deleting iptables
-     tags: iptables
-     yum: 
-       name: 
-         - iptables
-         - iproute
-         - dhclient
-         - plymouth
-         - initscripts
-         - kbd
-         - kexec-tools
-         - dracut
-         - firewalld
-         - iptables-services
-         - mlocate
-       state: present
-
+  - name: Install vpp-api-java Package
+    tags: danach
+    yum:
+      name: vpp-api-java
+      state: present
+      skip_broken: yes
+  
+  - name: Install several packages in case of deleting iptables
+    tags: iptables
+    yum: 
+      name: 
+        - iptables
+        - iproute
+        - dhclient
+        - plymouth
+        - initscripts
+        - kbd
+        - kexec-tools
+        - dracut
+        - firewalld
+        - iptables-services
+        - mlocate
+      state: present
 
   - name: Start VPP Service
     tags: service
@@ -80,21 +77,18 @@
       name: vpp
       state: started
       enabled: yes
-        
-    
-   - name: Set the timezone.
-     tags: NTP
-     shell: |
-       timedatectl set-ntp true
-       timedatectl set-timezone Europe/Berlin
+       
+   
+  - name: Set the timezone.
+    tags: NTP
+    shell: |
+      timedatectl set-ntp true
+      timedatectl set-timezone Europe/Berlin
 
-
-
-   - name: Create networking (IP routes) file 
-     tags: routing
-     ansible.builtin.template:
-       src: /root/DS-Lite_Test_Bed/files/MAPE-networking.txt
-       dest: /root/networking.sh
-       owner: root
-       mode: '755'
-
+  - name: Create networking (IP routes) file 
+    tags: routing
+    ansible.builtin.template:
+      src: /root/DS-Lite_Test_Bed/files/MAPE-networking.txt
+      dest: /root/networking.sh
+      owner: root
+      mode: '755'
