@@ -35,11 +35,13 @@
       state: present
 
   - name: Add VPP Repository to yum repo list
-    tags: curl
+    tags: comm
     command: curl -s https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh | sudo bash
- #   args:
-#      warn: no
-
+ 
+   - name: Add VPP Repository to yum repo list
+    tags: shell
+    shell: curl -s https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh | sudo bash
+ 
   - name: Clear the Cache
     command: yum clean all
 
