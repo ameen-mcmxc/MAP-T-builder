@@ -39,11 +39,11 @@
     uri:
       url: https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh
 
-   - name: Add VPP Repository to yum repo list
-     tags: uri-2
-     get_url:
-       url: https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh 
-       dest: /etc/yum.repos.d
+  - name: Add VPP Repository to yum repo list
+    tags: uri-2
+    get_url:
+      url: https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh 
+      dest: /etc/yum.repos.d
 
   - name: Add VPP Repository to yum repo list
     command: curl -s https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh | sudo bash
