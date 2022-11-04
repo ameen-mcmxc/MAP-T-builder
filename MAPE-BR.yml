@@ -40,7 +40,7 @@
     args:
       warn: no
 
-- name: Clear the Cache
+  - name: Clear the Cache
     command: yum clean all
 
   - name: Update yum Cache - mit Command
