@@ -91,7 +91,7 @@
     tags: service
     systemd:
       name: vpp
-      state: started
+      state: restarted
       enabled: yes
        
    
