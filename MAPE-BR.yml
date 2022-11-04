@@ -12,8 +12,8 @@
 
   - name: Install General Essential packages
     tags: essentials
-    yum: 
-      name: 
+    yum:
+      name:
         - nano
         - net-tools
         - tcpdump
@@ -56,8 +56,8 @@
 
   - name: Install General Essential packages
     tags: danach
-    yum: 
-      name: 
+    yum:
+      name:
         - vpp
         - vpp-plugins
         - vpp-devel
@@ -73,11 +73,11 @@
       name: vpp-api-java
       state: present
       skip_broken: yes
-  
+ 
   - name: Install several packages in case of deleting iptables
     tags: iptables
-    yum: 
-      name: 
+    yum:
+      name:
         - iptables
         - iproute
         - dhclient
@@ -97,7 +97,6 @@
       name: vpp
       state: restarted
       enabled: yes
-       
    
   - name: Set the timezone.
     tags: NTP
@@ -105,7 +104,7 @@
       timedatectl set-ntp true
       timedatectl set-timezone Europe/Berlin
 
-  - name: Create networking (IP routes) file 
+  - name: Create networking (IP routes) file
     tags: routing
     ansible.builtin.template:
       src: MAPE-networking.txt
