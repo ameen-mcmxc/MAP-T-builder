@@ -34,6 +34,15 @@
         - python36
       state: present
 
+  - name: Clear the Cache
+    command: yum clean all
+
+  - name: Update yum Cache
+    yum:
+      update_cache: yes
+      enablerepo: "fdio_master"
+      disablerepo: "*"
+
   - name: Install General Essential packages
     tags: danach
     yum: 
