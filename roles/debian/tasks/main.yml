@@ -21,7 +21,6 @@
       - telnet
       - conntrack
       - gcc
-      - mbedtls
     state: present
 
 - name: Add VPP Repository to yum repo list
