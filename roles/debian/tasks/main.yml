@@ -1,1 +1,72 @@
 ---
+- name: Update the machine
+  apt:
+    update_only: yes
+
+- name: Install General Essential packages
+  apt:
+    name:
+      - python3
+      - pip
+      - nano
+      - net-tools
+      - tcpdump
+      - nmap
+      - wireshark
+      - git
+      - wget
+      - iproute
+      - psmisc
+      - yum-utils
+      - chrony
+      - telnet
+      - iptables-services
+      - conntrack
+      - gcc
+      - mbedtls
+    state: present
+
+- name: Add VPP Repository to yum repo list
+  shell: curl -L https://packagecloud.io/fdio/release/gpgkey | sudo apt-key add -
+  
+- name: Clear the Cache
+  command: apt-get clean all
+
+- name: Update yum Cache - mit Command
+  command: apt-get -q makecache -y --disablerepo='*' --enablerepo='fdio_release'
+
+
+- name: Update yum Cache - mit Module
+  apt:
+    update_cache: yes
+    enablerepo: "fdio_master"
+    disablerepo: "*"
+    state: present
+
+- name: Install General Essential packages
+  apt:
+    name:
+      - vpp
+      - vpp-plugin-core
+      - vpp-plugin-dpdk
+      - vpp-api-python
+      - python3-vpp-api
+      - vpp-dpg
+      - vpp-dev
+    state: present
+
+- name: Install several packages in case of deleting iptables
+  apt:
+    name:
+      - iptables
+      - iproute
+      - dhclient
+      - plymouth
+      - initscripts
+      - kbd
+      - kexec-tools
+      - dracut
+      - firewalld
+      - iptables-services
+      - mlocate
+    state: present
