@@ -22,6 +22,7 @@
       - conntrack
       - gcc
       - curl
+      - sudo
     state: present
 
 - name: Add VPP Repository to yum repo list
