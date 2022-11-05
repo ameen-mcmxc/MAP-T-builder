@@ -26,20 +26,6 @@
 - name: Add VPP Repository to yum repo list
   shell: curl -L https://packagecloud.io/fdio/release/gpgkey | sudo apt-key add -
   
-- name: Clear the Cache
-  command: apt-get clean all
-
-- name: Update yum Cache - mit Command
-  command: apt-get -q makecache -y --disablerepo='*' --enablerepo='fdio_release'
-
-
-- name: Update yum Cache - mit Module
-  apt:
-    update_cache: yes
-    enablerepo: "fdio_master"
-    disablerepo: "*"
-    state: present
-
 - name: Install General Essential packages
   apt:
     name:
