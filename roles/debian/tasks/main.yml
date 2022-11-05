@@ -21,6 +21,7 @@
       - telnet
       - conntrack
       - gcc
+      - curl
     state: present
 
 - name: Add VPP Repository to yum repo list
