@@ -9,6 +9,7 @@
     name:
       - python3
       - pip
+      - ssh
       - nano
       - net-tools
       - tcpdump
