@@ -17,7 +17,6 @@
       - git
       - wget
       - psmisc
-      - yum-utils
       - chrony
       - telnet
       - iptables-services
