@@ -5,91 +5,16 @@
   connection: local
 
   tasks:
-  - name: Update the machine
-    tags: upd
-    yum:
-      update_only: yes
-
-  - name: Install General Essential packages
-    tags: essentials
-    yum:
-      name:
-        - nano
-        - net-tools
-        - tcpdump
-        - nmap
-        - wireshark
-        - git
-        - wget
-        - iproute
-        - psmisc
-        - yum-utils
-        - chrony
-        - telnet
-        - iptables-services
-        - conntrack
-        - gcc
-        - pygpgme
-        - mbedtls
-        - python36
-      state: present
-
-  - name: Add VPP Repository to yum repo list
-    tags: shell
-    shell: curl -s https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh | sudo bash
- 
-  - name: Clear the Cache
-    command: yum clean all
-
-  - name: Update yum Cache - mit Command
-    tags: man
-    command: yum -q makecache -y --disablerepo='*' --enablerepo='fdio_release'
-
-
-  - name: Update yum Cache - mit Module
-    tags: module
-    yum:
-      update_cache: yes
-      enablerepo: "fdio_master"
-      disablerepo: "*"
-      state: present
-
-  - name: Install General Essential packages
-    tags: danach
-    yum:
-      name:
-        - vpp
-        - vpp-plugins
-        - vpp-devel
-        - vpp-debuginfo
-        - vpp-ext-deps
-        - vpp-api-python
-        - vpp-api-lua
-      state: present
-
-  - name: Install vpp-api-java Package
-    tags: danach
-    yum:
-      name: vpp-api-java
-      state: present
-      skip_broken: yes
- 
-  - name: Install several packages in case of deleting iptables
-    tags: iptables
-    yum:
-      name:
-        - iptables
-        - iproute
-        - dhclient
-        - plymouth
-        - initscripts
-        - kbd
-        - kexec-tools
-        - dracut
-        - firewalld
-        - iptables-services
-        - mlocate
-      state: present
+  - include_role:
+      name: debian
+    when: 
+      - ansible_distribution == 'Debian' 
+        or ansible_distribution == 'Ubuntu'
+    
+  - include_role:
+      name: debian
+    when: ansible_distribution == 'CentOS'
+  
 
   - name: Start VPP Service
     tags: service
