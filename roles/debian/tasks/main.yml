@@ -1,8 +1,9 @@
 ---
 - name: Update the machine
   apt:
-    force_apt_get= yes
-      
+    name: "*"
+    stae: latest
+
 - name: Install General Essential packages
   apt:
     name:
