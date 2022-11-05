@@ -1,8 +1,9 @@
 ---
 - name: Update the machine
   apt:
-    update_only: yes
-
+    upgrade= dist
+    force_apt_get= yes
+      
 - name: Install General Essential packages
   apt:
     name:
