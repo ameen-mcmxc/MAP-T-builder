@@ -16,7 +16,6 @@
       - wireshark
       - git
       - wget
-      - iproute
       - psmisc
       - yum-utils
       - chrony
