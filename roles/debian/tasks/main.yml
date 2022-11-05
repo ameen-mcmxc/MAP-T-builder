@@ -2,7 +2,7 @@
 - name: Update the machine
   apt:
     name: "*"
-    stae: latest
+    state: latest
 
 - name: Install General Essential packages
   apt:
