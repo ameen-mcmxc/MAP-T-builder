@@ -19,7 +19,6 @@
       - psmisc
       - chrony
       - telnet
-      - iptables-services
       - conntrack
       - gcc
       - mbedtls
