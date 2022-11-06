@@ -25,6 +25,8 @@
       - curl
       - sudo
       - iptables
+      - ifupdown
+      - net-tools
     state: present
 
 - name: Add VPP Repository to yum repo list
