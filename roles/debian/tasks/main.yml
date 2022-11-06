@@ -24,6 +24,7 @@
       - gcc
       - curl
       - sudo
+      - iptables
     state: present
 
 - name: Add VPP Repository to yum repo list
@@ -39,20 +40,4 @@
       - python3-vpp-api
 #      - vpp-dpg
       - vpp-dev
-    state: present
-
-- name: Install several packages in case of deleting iptables
-  apt:
-    name:
-      - iptables
-      - iproute
-      - dhclient
-      - plymouth
-      - initscripts
-      - kbd
-      - kexec-tools
-      - dracut
-      - firewalld
-      - iptables-services
-      - mlocate
     state: present
