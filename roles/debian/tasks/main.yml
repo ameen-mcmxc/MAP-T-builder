@@ -27,7 +27,7 @@
     state: present
 
 - name: Add VPP Repository to yum repo list
-  shell: curl -L https://packagecloud.io/fdio/release/gpgkey | sudo apt-key add -
+  shell: curl -s https://packagecloud.io/install/repositories/fdio/release/script.deb.sh | sudo bash
   
 - name: Install General Essential packages
   apt:
