@@ -35,9 +35,9 @@
       - vpp
       - vpp-plugin-core
       - vpp-plugin-dpdk
-      # - vpp-api-python
+#      - vpp-api-python
       - python3-vpp-api
-      - vpp-dpg
+#      - vpp-dpg
       - vpp-dev
     state: present
 
