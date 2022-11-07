@@ -6,13 +6,13 @@
 
   tasks:
   - include_role:
-      name: debian
+      name: vpp_debian
     when: 
       - ansible_distribution == 'Debian' 
         or ansible_distribution == 'Ubuntu'
     
   - include_role:
-      name: debian
+      name: vpp_centos
     when: ansible_distribution == 'CentOS'
   
 
