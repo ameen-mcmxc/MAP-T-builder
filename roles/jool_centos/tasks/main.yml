@@ -94,3 +94,20 @@
     make install
   args:
     chdir: /usr/src/jool-4.1.7/
+
+
+- name: Double-Check if Jool is installed.
+  tags: check
+  shell: /sbin/dkms status
+  register: jool_status
+
+- name: Double-Check jool status output
+  tags: check    
+  debug:
+    msg: "{{ jool_status.stdout }}"
+
+- name: Fail when Jool was Not installed successfully.
+  tags: check    
+  fail:
+    msg: "Jool was NOT installed successfully"
+  when: "'installed' not in jool_status.stdout "
