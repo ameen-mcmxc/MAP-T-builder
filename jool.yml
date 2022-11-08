@@ -39,4 +39,4 @@
   - name: Double-Check if Jool is installed.
     tags: check    
     debug:
-    msg: "{{ jool_status }}"
+      msg: "{{ jool_status }}"
