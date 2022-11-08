@@ -56,4 +56,4 @@
   - name: Print stuff.
     tags: dn
     debug:
-      msg: "{{ device_name }}"
+      msg: "{{ device_name.stdout }}"
