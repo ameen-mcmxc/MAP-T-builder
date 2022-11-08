@@ -111,3 +111,12 @@
   fail:
     msg: "Jool was NOT installed successfully"
   when: "'installed' not in jool_status.stdout "
+
+- name: Create Networking file 
+  tags: jool
+  ansible.builtin.template:
+    src: CE.txt
+    dest: /root/CE.sh
+    owner: root
+    mode: '755'
+  when: "'-ce' in device_name.stdout"
