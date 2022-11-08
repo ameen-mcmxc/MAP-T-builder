@@ -1,0 +1,34 @@
+apt update
+user@T:~# apt upgrade
+
+/sbin/reboot
+ yum install gcc make elfutils-libelf-devel
+ 
+  yum install gcc make elfutils-libelf-devel
+  
+  yum install kernel-devel
+  yum install libnl3-devel
+  yum install iptables-devel
+  
+  
+  user@T:~# # https://fedoraproject.org/wiki/EPEL
+user@T:~# yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+user@T:~# yum install dkms
+
+
+yum install git automake libtool
+
+
+yum install tar
+
+git clone https://github.com/NICMx/Jool.git
+
+ /sbin/dkms install Jool/
+ 
+ 
+ cd Jool/
+user@T:~$ ./autogen.sh
+user@T:~$ ./configure
+user@T:~$ make
+user@T:~# make install
+
