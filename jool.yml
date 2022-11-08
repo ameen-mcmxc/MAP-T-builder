@@ -45,4 +45,4 @@
     tags: check    
     fail:
       msg: "Jool was NOT installed successfully"
-    when: "'installed' is not in jool_status.stdout "
+    when: "'installed' not in jool_status.stdout "
