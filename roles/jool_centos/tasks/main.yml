@@ -72,13 +72,13 @@
   tags: jool
   shell: wget https://github.com/NICMx/Jool/releases/download/v4.1.7/jool-4.1.7.tar.gz 
   args:
-    chdir: /root/
+    chdir: /sbin/dkms
 
 - name: Decompress jool files
   tags: jool
   shell: tar -xzf jool-4.1.7.tar.gz  
   args:
-    chdir: /root/
+    chdir: /sbin/dkms
 
 
 - name: install Jool
