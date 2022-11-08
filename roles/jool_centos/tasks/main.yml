@@ -69,9 +69,9 @@
 
 
 - name: Compile everything.
-  tags: snabb
-  shell: /sbin/dkms install Jool/
-
+  tags: jool
+  shell: /sbin/dkms install jool-4.1.7/
+  
 - name: Compile everything.
   tags: jool
   shell: |
