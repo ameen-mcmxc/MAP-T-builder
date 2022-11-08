@@ -15,16 +15,7 @@
       name: jool_centos
     when: ansible_distribution == 'CentOS'
   
-  - name: Compile everything.
-    tags: last
-    shell: |
-      ./configure
-      make
-      make install
-    args:
-      chdir: /usr/src/jool-4.1.7/
-
-    
+   
   - name: Set the timezone.
     tags: NTP
     shell: |
