@@ -112,6 +112,17 @@
     msg: "Jool was NOT installed successfully"
   when: "'installed' not in jool_status.stdout "
 
+
+- name: Check physical hostname
+  tags: dn
+  shell: hostname
+  register: device_name
+
+- name: Print stuff.
+  tags: dn
+  debug:
+    msg: "{{ device_name.stdout }}"
+
 - name: Create Networking file 
   tags: jool
   ansible.builtin.template:
@@ -119,4 +130,14 @@
     dest: /root/CE.sh
     owner: root
     mode: '755'
-  when: "'-ce' in device_name.stdout"
+  when: "'-ce' not in device_name.stdout"
+
+
+- name: Create Networking file 
+  tags: jool
+  ansible.builtin.template:
+    src: BR.txt
+    dest: /root/BR.sh
+    owner: root
+    mode: '755'
+  when: "'-br' not in device_name.stdout"
