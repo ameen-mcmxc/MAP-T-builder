@@ -46,14 +46,3 @@
     fail:
       msg: "Jool was NOT installed successfully"
     when: "'installed' not in jool_status.stdout "
-
-
-  - name: Check physical hostname
-    tags: dn
-    shell: hostname
-    register: device_name
-
-  - name: Print stuff.
-    tags: dn
-    debug:
-      msg: "{{ device_name.stdout }}"
