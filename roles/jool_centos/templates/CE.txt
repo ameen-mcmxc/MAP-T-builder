@@ -31,3 +31,12 @@
 /sbin/ip netns exec napt /sbin/sysctl -w net.ipv4.conf.all.forwarding=1
 /sbin/sysctl -w net.ipv4.conf.all.forwarding=1
 /sbin/sysctl -w net.ipv6.conf.all.forwarding=1
+
+
+# Weiter Schrittee
+
+/sbin/modprobe jool_mapt
+jool_mapt instance add "CE 11b" --netfilter --dmr 64:ff9b::/96
+jool_mapt -i "CE 11b" global update end-user-ipv6-prefix 2001:db8:ce:11b::/64
+jool_mapt -i "CE 11b" global update bmr 2001:db8:ce::/51 192.0.2.0/24 13 0
+jool_mapt -i "CE 11b" global update map-t-type CE
