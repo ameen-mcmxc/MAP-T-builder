@@ -67,9 +67,6 @@
     clone: yes
     update: yes
 
-$ 
-$ tar -xzf jool-4.1.7.tar.gz
-
 
 - name: Download jool
   tags: jool
