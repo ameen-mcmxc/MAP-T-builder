@@ -1,6 +1,4 @@
-
 ---
-
 - name: Update the machine
   tags: upd
   yum:
@@ -32,50 +30,19 @@
       - iptables-devel
       - tar
       - python36
+      - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - dkms
+      - automake
+      - libtool
     state: present
 
-- name: Add VPP Repository to yum repo list
-  tags: shell
-  shell: curl -s https://packagecloud.io/install/repositories/fdio/release/script.rpm.sh | sudo bash
 
 - name: Clear the Cache
   command: yum clean all
 
-- name: Update yum Cache - mit Command
-  tags: man
-  command: yum -q makecache -y --disablerepo='*' --enablerepo='fdio_release'
-
-
-- name: Update yum Cache - mit Module
-  tags: module
-  yum:
-    update_cache: yes
-    enablerepo: "fdio_master"
-    disablerepo: "*"
-    state: present
-
-- name: Install General Essential packages
-  tags: danach
-  yum:
-    name:
-      - vpp
-      - vpp-plugins
-      - vpp-devel
-      - vpp-debuginfo
-      - vpp-ext-deps
-      - vpp-api-python
-      - vpp-api-lua
-    state: present
-
-- name: Install vpp-api-java Package
-  tags: danach
-  yum:
-    name: vpp-api-java
-    state: present
-    skip_broken: yes
 
 - name: Install several packages in case of deleting iptables
-  tags: iptables
+  tags: noo
   yum:
     name:
       - iptables
@@ -92,26 +59,26 @@
     state: present
 
 
-  
-  
-  user@T:~# # https://fedoraproject.org/wiki/EPEL
-user@T:~# yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-user@T:~# yum install dkms
+- name: Clone Jool-repo
+  tags: jool
+  git:
+    repo: https://github.com/NICMx/Jool.git
+    single_branch: yes
+    dest: /root/jool
+    clone: yes
+    update: yes
 
 
-yum install git automake libtool
+- name: Compile everything.
+  tags: snabb
+  shell: /sbin/dkms install Jool/
 
-
-git clone https://github.com/NICMx/Jool.git
-
- /sbin/dkms install Jool/
- 
- 
- cd Jool/
-user@T:~$ ./autogen.sh
-user@T:~$ ./configure
-user@T:~$ make
-user@T:~# make install
-
-
-
+- name: Compile everything.
+  tags: jool
+  shell: |
+    ./autogen.sh
+    ./configure
+    make
+    make install
+  args:
+    chdir: /root/jool
