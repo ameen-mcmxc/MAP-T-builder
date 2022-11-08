@@ -29,3 +29,14 @@
       dest: /root/networking.sh
       owner: root
       mode: '755'
+
+
+  - name: Double-Check if Jool is installed.
+    tags: check
+    shell: /sbin/dkms status
+    register: jool_status
+  
+  - name: Double-Check if Jool is installed.
+    tags: check    
+    debug:
+    msg: "{{ jool_status }}"
