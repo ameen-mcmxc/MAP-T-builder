@@ -87,11 +87,10 @@
    
   
 - name: Compile everything.
-  tags: jool
+  tags: last
   shell: |
-    ./autogen.sh
     ./configure
     make
     make install
   args:
-    chdir: /root/jool
+    chdir: /usr/src/jool-4.1.7/
