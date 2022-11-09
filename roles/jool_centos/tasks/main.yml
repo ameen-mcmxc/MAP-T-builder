@@ -113,31 +113,26 @@
   when: "'installed' not in jool_status.stdout "
 
 
-- name: Check physical hostname
+- name: Grabb Physical Machine hostname
   tags: dn
   shell: hostname
   register: device_name
 
-- name: Print stuff.
-  tags: dn
-  debug:
-    msg: "{{ device_name.stdout }}"
-
-- name: Create Networking file 
+- name: Create Jool Networking file in CE Router 
   tags: jool
   ansible.builtin.template:
     src: CE.txt
     dest: /root/CE.sh
     owner: root
     mode: '755'
-  when: "'-ce' not in device_name.stdout"
+  when: "'-ce' in device_name.stdout"
 
 
-- name: Create Networking file 
+- name: Create Jool Networking file in BR Router 
   tags: jool
   ansible.builtin.template:
     src: BR.txt
     dest: /root/BR.sh
     owner: root
     mode: '755'
-  when: "'-br' not in device_name.stdout"
+  when: "'-br' in device_name.stdout"
