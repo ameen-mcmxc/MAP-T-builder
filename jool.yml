@@ -6,7 +6,7 @@
 
   tasks:
   - include_role:
-      name: jool_alam
+      name: jool_alma
     when: 
       - ansible_distribution|string == 'AlmaLinux'   
       
