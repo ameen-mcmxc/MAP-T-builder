@@ -5,17 +5,16 @@
   connection: local
 
   tasks:
-#  - include_role:
-#      name: jool_debian
-#    when: 
-#      - ansible_distribution == 'Debian' 
-#        or ansible_distribution == 'Ubuntu'
-    
+  - include_role:
+      name: jool_alam
+    when: 
+      - ansible_distribution|string == 'AlmaLinux'   
+      
   - include_role:
       name: jool_centos
     when: ansible_distribution == 'CentOS'
   
-   
+
   - name: Set the timezone.
     tags: NTP
     shell: |
