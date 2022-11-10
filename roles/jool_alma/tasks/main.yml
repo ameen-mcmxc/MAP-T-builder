@@ -59,13 +59,13 @@
     state: present
 
 
-- name: Clone Jool-repo
-  tags: noo
-  git:
-    repo: https://github.com/NICMx/Jool.git
-    dest: /root/jool
-    clone: yes
-    update: yes
+#- name: Clone Jool-repo
+#  tags: noo
+#  git:
+#    repo: https://github.com/NICMx/Jool.git
+#   dest: /root/jool
+#    clone: yes
+#   update: yes
 
 
 - name: Download jool
@@ -86,14 +86,14 @@
   shell: /sbin/dkms install -m jool -v 4.1.7
    
   
-- name: Compile everything.
-  tags: last
-  shell: |
-    ./configure
-    make
-    make install
-  args:
-    chdir: /usr/src/jool-4.1.7/
+#- name: Compile everything.
+#  tags: last
+#  shell: |
+#    ./configure
+#    make
+#    make install
+#  args:
+#    chdir: /usr/src/jool-4.1.7/
 
 
 - name: Double-Check if Jool is installed.
