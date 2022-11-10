@@ -37,6 +37,15 @@
     state: latest
 
 
+
+- name: Install Linux headr for the designated kernel   
+  command: yum install linux-headers-$(uname -r)
+
+# If the above Module didn't work: -
+# yum update -y
+# yum upgrade -y
+# reboot
+
 - name: Clear the Cache
   command: yum clean all
 
