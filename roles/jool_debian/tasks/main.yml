@@ -34,7 +34,7 @@
       - dkms
 #      - kernel-devel
 #      - libnl3-devel
-      - iptables-devel
+#      - iptables-devel
       - tar
       - python36
       - automake
