@@ -36,7 +36,7 @@
 #      - libnl3-devel
 #      - iptables-devel
       - tar
-      - python36
+#      - python36
       - automake
     state: latest
 
