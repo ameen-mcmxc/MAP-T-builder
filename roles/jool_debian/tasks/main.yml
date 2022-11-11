@@ -32,7 +32,7 @@
       - autoconf
       - libtool
       - dkms
-      - kernel-devel
+#      - kernel-devel
       - libnl3-devel
       - iptables-devel
       - tar
