@@ -57,24 +57,6 @@
   command: apt-get clean all
 
 
-- name: Install several packages in case of deleting iptables
-  tags: noo
-  apt:
-    name:
-      - iptables
-     # - iproute
-      - dhclient
-      - plymouth
-      - initscripts
-      - kbd
-      - kexec-tools
-      - dracut
-      - firewalld
-#      - iptables-services
-#      - mlocate
-    state: present
-
-
 #- name: Clone Jool-repo
 #  tags: noo
 #  git:
