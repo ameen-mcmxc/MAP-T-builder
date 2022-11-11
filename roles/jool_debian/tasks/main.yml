@@ -68,8 +68,8 @@
       - kexec-tools
       - dracut
       - firewalld
-      - iptables-services
-      - mlocate
+#      - iptables-services
+#      - mlocate
     state: present
 
 
