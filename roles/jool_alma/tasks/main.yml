@@ -43,7 +43,7 @@
   register: headers
 
 - name: Install Linux headr for the designated kernel   
-  shell: yum install linux-headers-"{{ headers.stdout }}"
+  shell: yum install kernel-devel-"{{ headers.stdout }}"
 
 # If the above Module didn't work: -
 # yum update -y
