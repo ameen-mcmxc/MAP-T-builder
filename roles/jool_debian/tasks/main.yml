@@ -82,7 +82,7 @@
 
 - name: install Jool
   tags: jool
-  shell: /sbin/dkms install -m jool -v 4.2.0
+  shell: /sbin/dkms install -m jool -v 4.2.0~rc2
    
   
 #- name: Compile everything.
