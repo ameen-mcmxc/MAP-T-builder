@@ -16,27 +16,29 @@
       - wireshark
       - git
       - wget
-     # - iproute
       - psmisc
-      #- yum-utils
       - chrony
       - telnet
-      - iptables-services
       - conntrack
       - gcc
       - make
+      - pkg-config
+      - build-essential
+      - libnl-genl-3-dev
       - elfutils-libelf-devel
+      - iptables-devel
+      - iptables-dev
+      - libxtables-dev
+      - autoconf
+      - libtool
+      - dkms
       - kernel-devel
       - libnl3-devel
       - iptables-devel
       - tar
       - python36
-      #- https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-      - dkms
       - automake
-      - libtool
     state: latest
-
 
 
 - name: Grab the kernel header name   
@@ -44,7 +46,7 @@
   register: headers
 
 - name: Install Linux headr for the designated kernel   
-  shell: apt-get install kernel-devel-"{{ headers.stdout }}"
+  shell: apt-get install linux-headers-"{{ headers.stdout }}"
 
 # If the above Module didn't work: -
 # yum update -y
