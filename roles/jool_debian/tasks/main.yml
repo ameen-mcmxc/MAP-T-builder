@@ -33,7 +33,7 @@
       - libtool
       - dkms
 #      - kernel-devel
-      - libnl3-devel
+#      - libnl3-devel
       - iptables-devel
       - tar
       - python36
