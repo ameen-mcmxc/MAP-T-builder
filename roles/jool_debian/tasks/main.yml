@@ -113,8 +113,10 @@
   tags: check    
   fail:
     msg: "Jool was NOT installed successfully"
-  when: "'installed' not in jool_status.stdout "
-
+  when: 
+    - "'jool' not in jool_status.stdout
+      or 'installed' not in jool_status.stdout"
+      
 
 - name: Grabb Physical Machine hostname
   tags: dn
