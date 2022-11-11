@@ -25,7 +25,7 @@
       - pkg-config
       - build-essential
       - libnl-genl-3-dev
-      - elfutils-libelf-devel
+#      - elfutils-libelf-devel
       - iptables-devel
       - iptables-dev
       - libxtables-dev
