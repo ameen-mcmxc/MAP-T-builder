@@ -87,7 +87,10 @@
   tags: jool
   shell: /sbin/dkms install -m jool -v 4.1.7
   #shell: /sbin/dkms install -m jool -v 4.2.0~rc2
-   
+ 
+ # To UN-install 
+  #shell: sudo /sbin/dkms remove -m jool/4.1.7
+
   
 - name: Compile everything.
   tags: last
