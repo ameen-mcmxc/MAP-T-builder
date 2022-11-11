@@ -27,7 +27,7 @@
       - libnl-genl-3-dev
 #      - elfutils-libelf-devel
 #      - iptables-devel
-      - iptables-dev
+#      - iptables-dev
       - libxtables-dev
       - autoconf
       - libtool
