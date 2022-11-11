@@ -1,0 +1,152 @@
+---
+- name: Update the machine
+  tags: upd
+  apt:
+    name: "*"
+    state: latest
+
+- name: Install General Essential packages
+  tags: essentials
+  apt:
+    name:
+      - nano
+      - net-tools
+      - tcpdump
+      - nmap
+      - wireshark
+      - git
+      - wget
+     # - iproute
+      - psmisc
+      #- yum-utils
+      - chrony
+      - telnet
+      - iptables-services
+      - conntrack
+      - gcc
+      - make
+      - elfutils-libelf-devel
+      - kernel-devel
+      - libnl3-devel
+      - iptables-devel
+      - tar
+      - python36
+      #- https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+      - dkms
+      - automake
+      - libtool
+    state: latest
+
+
+
+- name: Grab the kernel header name   
+  shell: uname -r
+  register: headers
+
+- name: Install Linux headr for the designated kernel   
+  shell: apt-get install kernel-devel-"{{ headers.stdout }}"
+
+# If the above Module didn't work: -
+# yum update -y
+# yum upgrade -y
+# reboot
+
+- name: Clear the Cache
+  command: apt-get clean all
+
+
+- name: Install several packages in case of deleting iptables
+  tags: noo
+  apt:
+    name:
+      - iptables
+     # - iproute
+      - dhclient
+      - plymouth
+      - initscripts
+      - kbd
+      - kexec-tools
+      - dracut
+      - firewalld
+      - iptables-services
+      - mlocate
+    state: present
+
+
+#- name: Clone Jool-repo
+#  tags: noo
+#  git:
+#    repo: https://github.com/NICMx/Jool.git
+#   dest: /jool
+#    clone: yes
+#   update: yes
+
+
+- name: Download jool
+  tags: jool
+  shell: wget https://github.com/NICMx/Jool/releases/download/v4.1.7/jool-4.1.7.tar.gz 
+  args:
+    chdir: /usr/src
+
+- name: Decompress jool files
+  tags: jool
+  shell: tar -xzf jool-4.1.7.tar.gz  
+  args:
+    chdir: /usr/src
+
+
+- name: install Jool
+  tags: jool
+  shell: /sbin/dkms install -m jool -v 4.1.7
+   
+  
+#- name: Compile everything.
+#  tags: last
+#  shell: |
+#    ./configure
+#    make
+#    make install
+#  args:
+#    chdir: /usr/src/jool-4.1.7/
+
+
+- name: Double-Check if Jool is installed.
+  tags: check
+  shell: /sbin/dkms status
+  register: jool_status
+
+- name: Double-Check jool status output
+  tags: check    
+  debug:
+    msg: "{{ jool_status.stdout }}"
+
+- name: Fail when Jool was Not installed successfully.
+  tags: check    
+  fail:
+    msg: "Jool was NOT installed successfully"
+  when: "'installed' not in jool_status.stdout "
+
+
+- name: Grabb Physical Machine hostname
+  tags: dn
+  shell: hostname
+  register: device_name
+
+- name: Create Jool Networking file in CE Router 
+  tags: jool
+  ansible.builtin.template:
+    src: CE.txt
+    dest: /CE.sh
+    owner: root
+    mode: '755'
+  when: "'-ce' in device_name.stdout"
+
+
+- name: Create Jool Networking file in BR Router 
+  tags: jool
+  ansible.builtin.template:
+    src: BR.txt
+    dest: /BR.sh
+    owner: root
+    mode: '755'
+  when: "'-br' in device_name.stdout"
