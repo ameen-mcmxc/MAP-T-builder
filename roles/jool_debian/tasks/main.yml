@@ -10,6 +10,7 @@
   tags: essentials
   apt:
     name:
+      - ssh
       - nano
       - net-tools
       - tcpdump
