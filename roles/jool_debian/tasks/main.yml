@@ -113,7 +113,7 @@
 #- name: Compile everything.
 #  tags: last
 #  shell: |
-    ./configure
+#    ./configure
  #   make
  #   make install
  # args:
