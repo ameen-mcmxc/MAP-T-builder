@@ -49,13 +49,13 @@
   shell: uname -r
   register: headers
 
-- name: Set CE-Router hostname    
-  shell: hostnamectl set-hostname MAP-T-CE
-  when: router_type == 'e'
+#- name: Set CE-Router hostname    
+#  shell: hostnamectl set-hostname MAP-T-CE
+#  when: router_type == 'e'
 
-- name: Set BR-Router hostname    
-  shell: hostnamectl set-hostname MAP-T-BR
-  when: router_type == 'b'
+#- name: Set BR-Router hostname    
+#  shell: hostnamectl set-hostname MAP-T-BR
+#  when: router_type == 'b'
 
 - name: Install Linux headr for the designated kernel   
   shell: apt-get install linux-headers-"{{ headers.stdout }}"
