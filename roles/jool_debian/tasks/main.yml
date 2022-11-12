@@ -4,7 +4,8 @@
   apt:
     name: "*"
     state: latest
-
+    force_apt_get: true
+    
 - name: Install General Essential packages
   tags: essentials
   apt:
