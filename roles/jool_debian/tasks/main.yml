@@ -44,9 +44,9 @@
   shell: hostnamectl set-hostname map-t-ce
   when: router_type == 'e'
 
-#- name: Set BR-Router hostname    
-#  shell: hostnamectl set-hostname map-t-br
-#  when: router_type == 'b'
+- name: Set BR-Router hostname    
+  shell: hostnamectl set-hostname map-t-br
+  when: router_type == 'b'
 
 - name: Install Linux headr for the designated kernel   
   shell: apt-get install linux-headers-"{{ headers.stdout }}"
