@@ -39,8 +39,8 @@
       - tar
 #      - python36
       - automake
-      - jool-dkms
-      - jool-tools
+#      - jool-dkms
+#      - jool-tools
     state: latest
 
 
@@ -129,9 +129,9 @@
 
 - name: Create Jool Networking file in CE Router 
   tags: jool
-  ansible.builtin.template:
+  template:
     src: CE.txt
-    dest: /CE.sh
+    dest: /root/CE.sh
     owner: root
     mode: '755'
   when: "'-ce' in device_name.stdout"
@@ -139,9 +139,17 @@
 
 - name: Create Jool Networking file in BR Router 
   tags: jool
-  ansible.builtin.template:
+  template:
     src: BR.txt
-    dest: /BR.sh
+    dest: /root/BR.sh
     owner: root
     mode: '755'
   when: "'-br' in device_name.stdout"
+
+- name: Create networking (IP routes) file
+  tags: routing
+  template:
+    src: networking.txt
+    dest: /root/networking.sh
+    owner: root
+    mode: '755'
