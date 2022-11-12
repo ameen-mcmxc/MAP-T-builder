@@ -28,11 +28,3 @@
     shell: |
       timedatectl set-ntp true
       timedatectl set-timezone Europe/Berlin
-
-  - name: Create networking (IP routes) file
-    tags: routing
-    ansible.builtin.template:
-      src: MAPE-networking.txt
-      dest: /root/networking.sh
-      owner: root
-      mode: '755'
