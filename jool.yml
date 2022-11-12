@@ -7,9 +7,11 @@
   tasks:
   - include_role:
       name: jool_debian
-    when:
-      - ansible_distribution|string == 'Debian'
-        or ansible_distribution|string == 'Ubuntu'
+    when: ansible_distribution|string == 'Debian'
+
+  - include_role:
+      name: jool_ubuntu
+    when: ansible_distribution|string == 'Ubuntu'
  
   - include_role:
       name: jool_alma
