@@ -27,21 +27,12 @@
       - pkg-config
       - build-essential
       - libnl-genl-3-dev
-#      - elfutils-libelf-devel
-#      - iptables-devel
-#      - iptables-dev
       - libxtables-dev
       - autoconf
       - libtool
       - dkms
-#      - kernel-devel
-#      - libnl3-devel
-#      - iptables-devel
       - tar
-#      - python36
       - automake
-#      - jool-dkms
-#      - jool-tools
     state: latest
 
 
@@ -49,12 +40,12 @@
   shell: uname -r
   register: headers
 
-#- name: Set CE-Router hostname    
-#  shell: hostnamectl set-hostname MAP-T-CE
-#  when: router_type == 'e'
+- name: Set CE-Router hostname    
+  shell: hostnamectl set-hostname map-t-ce
+  when: router_type == 'e'
 
 #- name: Set BR-Router hostname    
-#  shell: hostnamectl set-hostname MAP-T-BR
+#  shell: hostnamectl set-hostname map-t-br
 #  when: router_type == 'b'
 
 - name: Install Linux headr for the designated kernel   
@@ -77,39 +68,56 @@
 #    clone: yes
 #   update: yes
 
-
-- name: Download jool
+- name: Download the standalone .deb packages.
   tags: jool
+  shell: | 
+    wget https://github.com/NICMx/Jool/releases/download/v4.2.0-rc2/jool-dkms_4.2.0.rc2-1_all.deb
+    wget https://github.com/NICMx/Jool/releases/download/v4.2.0-rc2/jool-tools_4.2.0.rc2-1_amd64.deb
+  args:
+    chdir: /root/
+
+- name: install the standalone .deb packages.
+  tags: jool
+  shell: | 
+    apt-get install ./jool-dkms_4.2.0.rc2-1_all.deb
+    apt-get install ./jool-tools_4.2.0.rc2-1_amd64.deb
+  args:
+    chdir: /root/
+
+
+
+#- name: Download jool
+#  tags: jool
   #shell: wget https://github.com/NICMx/Jool/releases/download/v4.1.7/jool-4.1.7.tar.gz 
-  shell: wget https://github.com/NICMx/Jool/releases/download/v4.2.0-rc2/jool-4.2.0.rc2.tar.gz
-  args:
-    chdir: /usr/src
+#  shell: wget https://github.com/NICMx/Jool/releases/download/v4.2.0-rc2/jool-4.2.0.rc2.tar.gz
+#  args:
+#    chdir: /usr/src
 
-- name: Decompress jool files
-  tags: jool
+#- name: Decompress jool files
+#  tags: jool
   #shell: tar -xzf jool-4.1.7.tar.gz
-  shell: tar -xzf jool-4.2.0.rc2.tar.gz
-  args:
-    chdir: /usr/src
+#  shell: tar -xzf jool-4.2.0.rc2.tar.gz
+#  args:
+#    chdir: /usr/src
 
 
-- name: install Jool
-  tags: jool
+#- name: install Jool
+#  tags: jool
   #shell: /sbin/dkms install -m jool -v 4.1.7
-  shell: /sbin/dkms install -m jool -v 4.2.0~rc2
+#  shell: /sbin/dkms install -m jool -v 4.2.0~rc2
  
  # To UN-install 
   #shell: sudo /sbin/dkms remove -m jool/4.1.7
 
   
-- name: Compile everything.
-  tags: last
-  shell: |
+#- name: Compile everything.
+#  tags: last
+#  shell: |
     ./configure
-    make
-    make install
-  args:
-    chdir: /usr/src/jool-4.2.0~rc2/
+ #   make
+ #   make install
+ # args:
+ #   chdir: /usr/src/jool-4.2.0~rc2/
 
 
 - name: Double-Check if Jool is installed.
