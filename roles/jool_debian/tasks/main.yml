@@ -87,7 +87,7 @@
 - name: Decompress jool files
   tags: jool
   #shell: tar -xzf jool-4.1.7.tar.gz
-  shell: tar -xzf jool-4.2.0~rc2.tar.gz
+  shell: tar -xzf jool-4.2.0.rc2.tar.gz
   args:
     chdir: /usr/src
 
