@@ -1,2 +1,4 @@
 ---
-blabla
+- name: test
+  debu:
+    msg: "test"
