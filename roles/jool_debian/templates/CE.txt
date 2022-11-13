@@ -1,42 +1,53 @@
 #!/bin/bash
 
-# Create the new namespace
-/sbin/ip netns add napt
+# Flush iptables rules
+sudo iptables -F
+sudo ip6tables -F
+
+# Enable IP forwarding
+echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+
+# Create the new namespace called napt
+ip netns add napt # done
 
 # Connect the two namespaces through veth pair interfaces
-/sbin/ip link add to_napt type veth peer name to_global netns napt
+ip link add to_napt type veth peer name to_global netns napt # done
 
-# Send the physical eth0 interface to the new namespace
-/sbin/ip link set eth0 netns napt
+# Send the physical ens34 interface to the new namespace
+ip link set ens34 netns napt # done
 
 
 # Assign addresses to each interface
-/sbin/ip address add 2001:db8:6::11b/64 dev eth1
-/sbin/ip address add 10.0.0.1/24 dev to_napt
-/sbin/ip netns exec napt /sbin/ip address add 10.0.0.2/24 dev to_global
-/sbin/ip netns exec napt /sbin/ip address add 192.168.0.1/24 dev eth0
+ip address add 2001:db8:6::11b/64 dev ens35 # done
+ip address add 10.0.0.1/24 dev to_napt # done
+ip netns exec napt ip address add 10.0.0.2/24 dev to_global #
+ip netns exec napt ip address add 192.168.0.1/24 dev ens34
 
 # Activate all interfaces
-/sbin/ip link set eth1 up
-/sbin/ip link set to_napt up
-/sbin/ip netns exec napt /sbin/ip link set to_global up
-/sbin/ip netns exec napt /sbin/ip link set eth0 up
+ip link set ens35 up # done
+ip link set to_napt up
+ip netns exec napt ip link set to_global up # done
+ip netns exec napt ip link set ens34 up
 
 # Add essential routes to both namespaces
-/sbin/ip netns exec napt /sbin/ip route add default via 10.0.0.1
-/sbin/ip route add 64:ff9b::/96 via 2001:db8:6::1
-/sbin/ip route add 192.0.2.8/32 via 10.0.0.2
+ip netns exec napt ip route add default via 10.0.0.1
+ip route add 64:ff9b::/96 via 2001:db8:6::1
+ip route add 192.0.2.8/32 via 10.0.0.2
 
 # Turn both namespaces into routers
-/sbin/ip netns exec napt /sbin/sysctl -w net.ipv4.conf.all.forwarding=1
-/sbin/sysctl -w net.ipv4.conf.all.forwarding=1
-/sbin/sysctl -w net.ipv6.conf.all.forwarding=1
+ip netns exec napt /sbin/sysctl -w net.ipv4.conf.all.forwarding=1
 
 
-# Weiter Schrittee
+# Jool running
 
 /sbin/modprobe jool_mapt
 jool_mapt instance add "CE 11b" --netfilter --dmr 64:ff9b::/96
 jool_mapt -i "CE 11b" global update end-user-ipv6-prefix 2001:db8:ce:11b::/64
 jool_mapt -i "CE 11b" global update bmr 2001:db8:ce::/51 192.0.2.0/24 13 0
 jool_mapt -i "CE 11b" global update map-t-type CE
+
+# NAPT
+sudo /sbin/ip netns exec napt iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o to_global -p tcp -j SNAT --to-source 192.0.2.8:55296-57343
+sudo /sbin/ip netns exec napt iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o to_global -p udp -j SNAT --to-source 192.0.2.8:55296-57343
+sudo /sbin/ip netns exec napt iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o to_global -p icmp -j SNAT --to-source 192.0.2.8:55296-57343
