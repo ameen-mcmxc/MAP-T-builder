@@ -1,0 +1,49 @@
+---
+- hosts: localhost
+  gather_facts: false
+  connection: local
+
+
+  tasks:
+  - name: Update the machine
+    tags: upd
+    yum:
+      update_only: yes
+
+  - name: Install General Essential packages
+    tags: essentials
+    yum:
+      name:
+        - nano
+        - net-tools
+        - tcpdump
+        - nmap
+        - wireshark
+        - git
+        - wget
+        - iproute
+        - psmisc
+        - yum-utils
+        - chrony
+        - telnet
+        - iptables-services
+        - conntrack
+        - gcc
+        - make
+        - tar
+      state: present
+
+  - name: Create Jool Networking file in client 
+    tags: jool
+    template:
+      src: jool-net-client.txt
+      dest: /root/jool-net.sh
+      owner: root
+      mode: '755'
+
+
+  - name: Set the timezone.
+    tags: NTP
+    shell: |
+      timedatectl set-ntp true
+      timedatectl set-timezone Europe/Berlin
