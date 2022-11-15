@@ -1,10 +1,10 @@
 #!/bin/bash
 
-local_int='ens34'
-local_ip='203.0.113.56/24'
-remote_net='192.0.2.0/24'
-br_ip='203.0.113.1'
 
+local_int='ens34'
+local_ip='192.0.2.2/24'
+remote_net='203.0.113.0/24'
+br_ip='192.0.2.1'
 
 /sbin/ip address add $local_ip dev $local_int
 /sbin/ip link set $local_int up
@@ -15,6 +15,5 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
 
 iptables -F
-iptables -X
 ip6tables -F
-ip6tables -X
+
