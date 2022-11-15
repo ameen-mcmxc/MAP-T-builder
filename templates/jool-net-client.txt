@@ -15,4 +15,3 @@ ce_ip='192.168.0.1'
 
 echo 1 > /proc/sys/net/ipv4/ip_forward
 echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
-
