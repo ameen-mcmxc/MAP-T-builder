@@ -2,29 +2,32 @@
 
 ce_local_int='ens34'
 ce_global_int='ens35'
-ce_local_ip='192.168.0.1/24'
-ce_local_ip_net='192.168.0.0/24'
+ce_local_ip='10.0.0.1/24'
+
+#replace 192.168 with 10.0.0
+
+ce_local_ip_net='10.0.0.0/24'
 ce_global_ip='2001:db8:6::11b/64'
 br_global_ip='2001:db8:6::1'
 
 inside_napt_int='to_global'
-inside_napt_ip='10.0.0.2/24'
-inside_napt_ip_no_mask='10.0.0.2'
+inside_napt_ip='192.168.0.2/24'
+inside_napt_ip_no_mask='192.168.0.2'
 
 inside_global_int='to_napt'
-inside_global_ip='10.0.0.1/24'
-inside_global_ip_no_mask='10.0.0.1'
+inside_global_ip='192.168.0.1/24'
+inside_global_ip_no_mask='192.168.0.1'
 
 ports_set='55296-57343'
-nat44_global_ip='192.0.2.8'
-nat44_global_ip_net='192.0.2.0/24'
+nat44_global_ip='203.0.113.8'
+nat44_global_ip_net='203.0.113.0/24'
 
 # Flush iptables rules
 sudo iptables -F
 sudo ip6tables -F
 
 # Create the new namespace called napt
-ip netns add napt # done
+ip netns add napt
 
 # Connect the two namespaces through veth pair interfaces
 ip link add $inside_global_int type veth peer name $inside_napt_int netns napt
@@ -56,15 +59,14 @@ echo 1 > /proc/sys/net/ipv4/ip_forward
 echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
 
 
-# Jool running
-
+# Runng Jool
 /sbin/modprobe jool_mapt
 jool_mapt instance add "CE 11b" --netfilter --dmr 64:ff9b::/96
 jool_mapt -i "CE 11b" global update end-user-ipv6-prefix 2001:db8:ce:11b::/64
 jool_mapt -i "CE 11b" global update bmr 2001:db8:ce::/51 $nat44_global_ip_net 13 0
 jool_mapt -i "CE 11b" global update map-t-type CE
 
-# NAPT
+# NAPT44
 sudo /sbin/ip netns exec napt iptables -t nat -A POSTROUTING -s $ce_local_ip_net -o $inside_napt_int -p tcp -j SNAT --to-source $nat44_global_ip:$ports_set
 sudo /sbin/ip netns exec napt iptables -t nat -A POSTROUTING -s $ce_local_ip_net -o $inside_napt_int -p udp -j SNAT --to-source $nat44_global_ip:$ports_set
 sudo /sbin/ip netns exec napt iptables -t nat -A POSTROUTING -s $ce_local_ip_net -o $inside_napt_int -p icmp -j SNAT --to-source $nat44_global_ip:$ports_set
