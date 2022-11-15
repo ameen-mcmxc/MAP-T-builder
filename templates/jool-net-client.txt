@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+iptables -F
+ip6tables -F
+
+
+local_int='ens34'
+local_ip='192.168.0.4/24'
+ce_ip='192.168.0.1'
+
+/sbin/ip address add $local_ip dev $local_int
+/sbin/ip link set $local_int up
+/sbin/ip route add default via $ce_ip
+
+echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+
