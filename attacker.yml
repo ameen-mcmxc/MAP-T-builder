@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  any_errors_fatal: true
+  gather_facts: true
+  connection: local
+
+  tasks:
+  - include_role:
+      name: atk_deb
+    when: ansible_distribution|string == 'Debian'
+
+  - include_role:
+      name: jool_ubuntu
+    when: ansible_distribution|string == 'Ubuntu'
+ 
+  - name: Set the timezone.
+    tags: NTP
+    shell: |
+      timedatectl set-ntp true
+      timedatectl set-timezone Europe/Berlin
