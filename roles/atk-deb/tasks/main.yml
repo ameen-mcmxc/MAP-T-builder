@@ -1,0 +1,74 @@
+---
+- name: Update the machine
+  tags: upd
+  apt:
+    name: "*"
+    state: latest
+    force_apt_get: true
+    
+- name: Install General Essential packages
+  tags: essentials
+  apt:
+    name:
+      - ssh
+      - nano
+      - net-tools
+      - tcpdump
+      - nmap
+      - wireshark
+      - tshark
+      - git
+      - wget
+      - psmisc
+      - chrony
+      - telnet
+      - conntrack
+      - gcc
+      - make
+      - pkg-config
+      - build-essential
+      - libnl-genl-3-dev
+      - libxtables-dev
+      - autoconf
+      - libtool
+      - tar
+      - automake
+      - libc6
+      - libnetfilter-queue1
+      - libpcap0.8
+      - libssl3
+    state: latest
+
+- name: Clear the Cache
+  command: apt-get clean all
+
+
+#- name: Clone Jool-repo
+#  tags: noo
+#  git:
+#    repo: https://github.com/NICMx/Jool.git
+#   dest: /jool
+#    clone: yes
+#   update: yes
+
+
+  
+#- name: Compile everything.
+#  tags: last
+#  shell: |
+#    ./configure
+ #   make
+ #   make install
+ # args:
+ #   chdir: /usr/src/jool-4.2.0~rc2/
+
+     
+- name: Create networking (IP routes) file
+  tags: routing
+  template:
+    src: atk-net.txt
+    dest: /root/jool-net.sh
+    owner: root
+    mode: '755'
+    
+  
