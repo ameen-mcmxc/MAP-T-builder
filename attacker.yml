@@ -8,10 +8,12 @@
   - include_role:
       name: atk_deb
     when: ansible_distribution|string == 'Debian'
-
+          or ansible_distribution|string == 'Ubuntu'
+ 
   - include_role:
-      name: jool_ubuntu
-    when: ansible_distribution|string == 'Ubuntu'
+      name: atk_centos
+    when: ansible_distribution|string == 'CentOS'
+ 
  
   - name: Set the timezone.
     tags: NTP
