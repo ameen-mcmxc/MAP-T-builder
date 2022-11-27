@@ -28,7 +28,7 @@
 - name: Clone Scapy Repo
   git:
     repo: https://github.com/secdev/scapy.git
-    dest: /root/
+    dest: /root/scapy
     clone: yes
     update: yes
   when:
