@@ -32,7 +32,7 @@
     clone: yes
     update: yes
   when:
-    - attack_scenario == "1"
+    - attack_scenario == "a"
 
 - name: Create Networking and script 
   ansible.builtin.template:
