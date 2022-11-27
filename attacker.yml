@@ -1,8 +1,12 @@
 ---
 - hosts: localhost
-  any_errors_fatal: true
   gather_facts: true
   connection: local
+
+  vars_prompt:
+    - name: "attack_scenario"
+      prompt: "Please Enter Your Attacking Scenario, 'A' or 'B'"
+      private: no
 
   tasks:
   - include_role:
