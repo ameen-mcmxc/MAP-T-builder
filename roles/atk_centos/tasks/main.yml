@@ -1,11 +1,9 @@
 ---
 - name: Update the machine
-  tags: upd
   yum:
     update_only: yes
 
 - name: Install General Essential packages
-  tags: essentials
   yum: 
     name: 
       - nano
@@ -33,7 +31,8 @@
     dest: /root/
     clone: yes
     update: yes
-
+  when:
+    - attack_scenario == "1"
 
 - name: Create Networking and script 
   ansible.builtin.template:
