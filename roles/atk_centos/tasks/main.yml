@@ -1,1 +1,43 @@
 ---
+- name: Update the machine
+  tags: upd
+  yum:
+    update_only: yes
+
+- name: Install General Essential packages
+  tags: essentials
+  yum: 
+    name: 
+      - nano
+      - net-tools
+      - tcpdump
+      - nmap
+      - wireshark
+      - git
+      - wget
+      - iproute
+      - psmisc
+      - yum-utils
+      - chrony
+      - telnet
+      - iptables-services
+      - conntrack
+      - gcc
+      - bridge-utils
+      - hping3
+    state: present
+
+- name: Clone Scapy Repo
+  git:
+    repo: https://github.com/secdev/scapy.git
+    dest: /root/
+    clone: yes
+    update: yes
+
+
+- name: Create Networking and script 
+  ansible.builtin.template:
+    src: atk-net.txt
+    dest: /root/jool-net.sh
+    owner: root
+    mode: '755'
