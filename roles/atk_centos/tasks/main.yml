@@ -23,6 +23,7 @@
       - gcc
       - bridge-utils
       - hping3
+      - bind-utils
     state: present
 
 - name: Clone Scapy Repo
