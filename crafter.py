@@ -2,6 +2,7 @@
 
 from scapy.all import *
 
+# Adding IPv6 route
 conf.route6.add(dst="64:ff9b::/96", gw="2001:db8:6::1")
 
 # function to process the packet
