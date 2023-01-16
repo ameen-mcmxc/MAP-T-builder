@@ -3,7 +3,6 @@ message: "If you use this software, please cite it as below."
 authors:
   - given-names: Ameen
     family-names: Al-Azzawi
-    name-particle: "Ameen Azzawi"
     email: ameen.azzawi@gmail.com
     affiliation: MAP-E/MAP-T
 title: "MAP-E / MAP-T IPv6 transition Technology builder and tester"
