@@ -1,0 +1,23 @@
+#!/bin/sh
+
+
+sysctl -w net.ipv4.conf.all.forwarding=1
+sysctl -w net.ipv6.conf.all.forwarding=1
+
+iptables -F
+iptables -X
+
+ip6tables -F
+ip6tables -X
+
+
+ipv4_int='ens34'
+ipv6_int='ens35'
+local_ipv4='10.0.0.0/24'
+
+
+
+./control start
+utils/ivictl -r -d -P 2001:da8:b001:ffff::/64 -E
+utils/ivictl -r -p $ local_ipv4 -P 2001:da8:5678::/48 -z 4 -R 16 -E
+utils/ivictl -s -i $ipv4_int -I $ipv6_int -H -a 192.168.1.1/24 -A 202.38.102.130/28 -P 2001:da8:b001::/48 -z 4 -R 16 -o 1 -c 1400 -E
