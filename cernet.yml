@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  any_errors_fatal: true
+  gather_facts: true
+  connection: local
+
+  vars_prompt:
+    - name: "router_type"
+      prompt: "Enter Router's type, 'e' for CE, 'b' for BR"
+      default: 'e'
+      private: no
+
+
+  tasks:
+  - include_role:
+      name: cernet_centos
+    when: ansible_distribution == 'CentOS'
+  
+
+  - name: Set the timezone.
+    tags: NTP
+    shell: |
+      timedatectl set-ntp true
+      timedatectl set-timezone Europe/Berlin
