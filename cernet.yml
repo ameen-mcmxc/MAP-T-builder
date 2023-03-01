@@ -4,13 +4,6 @@
   gather_facts: true
   connection: local
 
-  vars_prompt:
-    - name: "router_type"
-      prompt: "Enter Router's type, 'e' for CE, 'b' for BR"
-      default: 'e'
-      private: no
-
-
   tasks:
   - include_role:
       name: cernet_centos
