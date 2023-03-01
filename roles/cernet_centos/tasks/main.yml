@@ -1,0 +1,115 @@
+---
+- name: Update the machine
+  tags: upd
+  yum:
+    update_only: yes
+
+- name: Install General Essential packages
+  tags: essentials
+  yum:
+    name:
+      - nano
+      - net-tools
+      - tcpdump
+      - nmap
+      - wireshark
+      - git
+      - wget
+      - iproute
+      - psmisc
+      - yum-utils
+      - chrony
+      - telnet
+      - iptables-services
+      - conntrack
+      - gcc
+      - make
+      - elfutils-libelf-devel
+      - kernel-devel
+    state: present
+
+
+- name: Clear the Cache
+  command: yum clean all
+
+
+- name: Install several packages in case of deleting iptables
+  tags: noo
+  yum:
+    name:
+      - iptables
+      - iproute
+      - dhclient
+      - plymouth
+      - initscripts
+      - kbd
+      - kexec-tools
+      - dracut
+      - firewalld
+      - iptables-services
+      - mlocate
+    state: present
+
+
+- name: Clone cernet-repo
+  tags: noo
+  git:
+    repo: https://github.com/dpino/MAP.git
+    version: hlist_for_each
+    dest: /root/
+    clone: yes
+    update: yes
+
+
+- name: Install kernel Header
+  tags: header
+  shell: yum install "kernel-devel-uname-r == $(uname -r)" -y
+
+
+- name: Replace obsoleted function
+  tags: regex
+  replace:
+    path: /root/MAP/modules/ivi_rule.c
+    regexp: 'hlist_add_after'
+    replace: 'hlist_add_behind'
+  
+  
+- name: Compile the Modules.
+  tags: make
+  shell: make all
+  args:
+    chdir: /root/MAP/modules/
+
+
+- name: Compile the Utils.
+  tags: make
+  shell: make all
+  args:
+    chdir: /root/MAP/utils/
+
+
+- name: Create Cernet Networking file in CE Router 
+  tags: jool
+  ansible.builtin.template:
+    src: CE.txt
+    dest: /root/MAP/zyhgw-E44
+    owner: root
+    mode: '755'
+
+
+- name: Create Cernet Networking file in BR Router 
+  tags: jool
+  ansible.builtin.template:
+    src: BR.txt
+    dest: /root/MAP/zyhgw-E
+    owner: root
+    mode: '755'
+
+
+
+- name: Give execute permission to some files.
+  tags: execute
+  shell: chmod a+x control zyhgw-E zyhgw-E44 stopall
+  args:
+    chdir: /root/MAP/
+
