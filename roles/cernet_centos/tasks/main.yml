@@ -90,7 +90,7 @@
 
 - name: Create Cernet Networking file in CE Router 
   tags: jool
-  ansible.builtin.template:
+  template:
     src: CE.txt
     dest: /root/MAP/zyhgw-E44
     owner: root
@@ -99,7 +99,7 @@
 
 - name: Create Cernet Networking file in BR Router 
   tags: jool
-  ansible.builtin.template:
+  template:
     src: BR.txt
     dest: /root/MAP/zyhgw-E
     owner: root
