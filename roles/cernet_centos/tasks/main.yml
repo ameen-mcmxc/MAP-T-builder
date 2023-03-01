@@ -52,7 +52,7 @@
 
 
 - name: Clone cernet-repo
-  tags: noo
+  tags: repo
   git:
     repo: https://github.com/dpino/MAP.git
     version: hlist_for_each
@@ -89,7 +89,7 @@
 
 
 - name: Create Cernet Networking file in CE Router 
-  tags: jool
+  tags: template
   template:
     src: CE.txt
     dest: /root/MAP/zyhgw-E44
@@ -98,10 +98,19 @@
 
 
 - name: Create Cernet Networking file in BR Router 
-  tags: jool
+  tags: template
   template:
     src: BR.txt
     dest: /root/MAP/zyhgw-E
+    owner: root
+    mode: '755'
+
+
+- name: Create Addressing and routing script 
+  tags: template
+  template:
+    src: zxhgw-addr.txt
+    dest: /root/MAP/zxhgw-addr
     owner: root
     mode: '755'
 
