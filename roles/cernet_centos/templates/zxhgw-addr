@@ -1,0 +1,35 @@
+#!/bin/sh
+
+
+ipv4_int='ens34'
+ipv6_int='ens35'
+public_v4='202.38.102.129/30'
+
+# configure system profile
+echo 1 > /proc/sys/net/ipv4/ip_forward
+echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+echo 0 > /proc/sys/net/ipv6/conf/$ipv6_int/autoconf
+echo 0 > /proc/sys/net/ipv6/conf/$ipv4_int/autoconf
+echo 0 > /proc/sys/net/ipv4/conf/$ipv6_int/rp_filter
+echo 0 > /proc/sys/net/ipv4/conf/$ipv4_int/rp_filter
+
+# configure $ipv6_int -- IPv6 interface
+ifconfig $ipv6_int down
+ifconfig $ipv6_int up
+ip -6 addr add 2001:da8:aaaf:1000::2/64 dev $ipv6_int
+ip -6 route add default via 2001:da8:aaaf:1000::1 dev $ipv6_int
+
+# configure $ipv4_int -- IPv4 interface
+ifconfig $ipv4_int down
+ifconfig $ipv4_int up
+ifconfig $ipv4_int 192.168.1.1/24
+ip route add default dev $ipv4_int
+ifconfig $ipv4_int $public_v4
+ip -6 addr add 2001:da8:b001:2000::1/64 dev $ipv4_int
+
+dhcpd -cf /etc/dhcpd.conf
+radvd
+/etc/init.d/dnsmasq start
+
+service iptables stop
+service ip6tables stop
