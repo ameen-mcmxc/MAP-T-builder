@@ -56,7 +56,7 @@
   git:
     repo: https://github.com/dpino/MAP.git
     version: hlist_for_each
-    dest: /root/
+    dest: /root/MAP
     clone: yes
     update: yes
 
