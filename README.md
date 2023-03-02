@@ -9,11 +9,17 @@
 ## Prerequisites:
 
 CE and BR machines have to de Debian 10 (jool software limitation).
+
 The rest of the machines  (IPv4 client, IPv4 server and attacker) can be any Linux distribution that you prefer.
+
 I personally built the whole thing using VMware workstations VMs.
-after creating the machines as shown in the above topology. it's time to install everything.
+
+After creating the machines as shown in the above topology. it's time to install everything.
+
 Clone the current repo on all machines.
+
 login as root
+
 ## CE machine
 
 `
