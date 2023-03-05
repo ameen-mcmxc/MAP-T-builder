@@ -3,7 +3,7 @@
 from scapy.all import *
 
 
-# This scripts prints out the payload content of the sniffed UDP or TCP Packet and also the data inside the ICMPv6 packet.
+# This script prints out the payload content of the sniffed UDP or TCP Packet and also the data inside the ICMPv6 packet.
 def packet_handler(packet):
         if UDP in packet:
             udp_payload = packet[UDP].payload
