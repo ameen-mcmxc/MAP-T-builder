@@ -44,8 +44,17 @@
   - name: Create UDP packet crafting script using Scappy
     tags: scappy
     template:
-      src: udp-crafter.txt
+      src: udp-crafter.py
       dest: /root/udp-crafter.py
+      owner: root
+      mode: '755'
+
+
+  - name: Create TCP packet crafting script using Scappy
+    tags: scappy
+    template:
+      src: tcp-crafter.py
+      dest: /root/tcp-crafter.py
       owner: root
       mode: '755'
 
