@@ -7,7 +7,8 @@ from scapy.all import *
 # Create the packet
 ip = IP(dst="192.0.2.2")
 udp = UDP(dport=80)
-pkt = ip/udp
+payload = load=("Test-Gabor")
+pkt = ip/udp/payload
 
 # Send the packet
 send(pkt)
