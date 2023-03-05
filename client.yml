@@ -41,6 +41,14 @@
       owner: root
       mode: '755'
 
+  - name: Create UDP packet crafting script using Scappy
+    tags: scappy
+    template:
+      src: udp-crafter.txt
+      dest: /root/udp-crafter.py
+      owner: root
+      mode: '755'
+
 
   - name: Set the timezone.
     tags: NTP
