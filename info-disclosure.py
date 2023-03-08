@@ -8,7 +8,6 @@ from scapy.all import *
 def packet_handler(packet):
         if UDP in packet:
             udp_payload = packet[UDP].payload
-            print(f"UDP Packet:")
             print(f"Payload: {udp_payload}")
         elif ICMPv6EchoRequest in packet:
             icmp6_payload = packet[ICMPv6EchoRequest].data
