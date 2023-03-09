@@ -40,7 +40,7 @@ def process_packet(packet):
 
     elif packet.haslayer(ICMPv6EchoRequest) and packet[IPv6].src == "2001:db8:ce:11b:0:cb00:7108:1b":
         icmp_id = packet.getlayer(ICMPv6EchoRequest).id
-        print("[+] Found ICMPv6 packet with source port: ", icmp_id)
+        print("[+] Found ICMPv6 packet with source port (ICMP-ID): ", icmp_id)
         ether = Ether(dst="00:0c:29:e9:d1:1a", src="00:0c:29:b3:80:01")
         ipv6 = IPv6(src="2001:db8:ce:11b:0:cb00:7108:1b", dst="64:ff9b::c000:202")
         icmp6 = ICMPv6EchoRequest(id=icmp_id, data="From Ameen with Love!")
