@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 # This script is used to send TCP packet from the client to the Server.
+# However, it adds an extra layer of security by encrypting the payload of the TCP packet.
 
 from scapy.all import *
 
