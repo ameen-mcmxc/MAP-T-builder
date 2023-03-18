@@ -7,8 +7,9 @@ from scapy.all import *
 
 
 
-# This script sniffes the communication channel on Interface ens34, looks for UDP Packets,
-# then sends a crafted packet to the BR, deceives it and claims to be the CE machine, which qualifies to be "Man in the Middle attack".
+# This script sniffes the communication channel on Interface ens34, looks for UDP Packets.
+# It then sends a crafted packet to the BR, deceives it and claims to be the CE machine.
+# It qualifies to be "Man in the Middle attack".
 
 # function to process the packet
 def process_packet(packet):
