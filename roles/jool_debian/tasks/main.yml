@@ -33,6 +33,7 @@
       - dkms
       - tar
       - automake
+      - iptables
     state: latest
 
 
