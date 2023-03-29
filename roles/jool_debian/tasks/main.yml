@@ -79,8 +79,8 @@
 - name: install the standalone .deb packages.
   tags: jool
   shell: | 
-    apt-get install ./jool-dkms_4.2.0.rc2-1_all.deb
-    apt-get install ./jool-tools_4.2.0.rc2-1_amd64.deb
+    apt-get install ./jool-dkms_4.2.0.rc2-1_all.deb -y
+    apt-get install ./jool-tools_4.2.0.rc2-1_amd64.deb -y
   args:
     chdir: /root/
 
