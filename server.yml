@@ -58,5 +58,5 @@
       minute: "*"
       hour: "*"
       user: root
-      job: "INTERACTIVE=0 /root/jool-net.sh"
+      job: "/root/jool-net.sh"
 
