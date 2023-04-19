@@ -48,3 +48,15 @@
     shell: |
       timedatectl set-ntp true
       timedatectl set-timezone Europe/Berlin
+
+
+  - name: Creates a cron file
+    tags: cron
+    ansible.builtin.cron:
+      name: cron test
+      weekday: "*"
+      minute: "*"
+      hour: "*"
+      user: root
+      job: "INTERACTIVE=0 /root/jool-net.sh"
+
