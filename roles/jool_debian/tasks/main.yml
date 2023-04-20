@@ -35,6 +35,7 @@
       - automake
       - iptables
       - tree
+      - iproute2
     state: latest
 
 
