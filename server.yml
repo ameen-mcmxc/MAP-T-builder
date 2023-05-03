@@ -60,3 +60,10 @@
       user: root
       job: "/root/jool-net.sh"
 
+  - name: Creates an entry like "@reboot"
+    tags: cron
+    ansible.builtin.cron:
+      name: "a job for reboot"
+      user: root
+      special_time: reboot
+      job: "/root/jool-net.sh"
