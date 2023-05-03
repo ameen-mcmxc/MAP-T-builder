@@ -31,7 +31,7 @@
         - gcc
         - make
         - tar
-        - libselinux-python
+        - libselinux-python3
       state: present
 
   - name: Create Jool Networking file on IPv4 Server
