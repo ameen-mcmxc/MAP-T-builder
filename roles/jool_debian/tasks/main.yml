@@ -167,3 +167,22 @@
     dest: /root/networking.sh
     owner: root
     mode: '755'
+
+
+- name: Creates an cron job entry on CE machine after reboot
+  tags: cron
+  cron:
+    name: "A job for reboot"
+    user: root
+    special_time: reboot
+    job: "/root/CE.sh"
+  when: router_type == 'e'
+
+- name: Creates an cron job entry on BR machine after reboot
+  tags: cron
+  cron:
+    name: "A job for reboot"
+    user: root
+    special_time: reboot
+    job: "/root/BR.sh"
+  when: router_type == 'b'
